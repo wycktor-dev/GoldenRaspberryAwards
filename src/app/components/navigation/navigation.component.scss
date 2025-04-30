@@ -1,0 +1,37 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+.spacer {
+  flex: 1 1 auto;
+}
+
+nav a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+nav a.active {
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
+.toolbar {
+  background: linear-gradient(90deg, #FFD700, #FFB700);
+  min-width: 400px;
+}
+
+.title {
+  overflow: hidden;
+  max-width: 200px;
+}
+
+@media (max-width: 470px) {
+  .title {
+    font-size: 14px;
+    max-width: 120px;
+    text-overflow: ellipsis;
+  }
+}

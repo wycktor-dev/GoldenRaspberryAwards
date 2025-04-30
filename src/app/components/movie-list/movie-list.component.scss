@@ -1,0 +1,48 @@
+.movie-list-container {
+    padding: 20px;
+}
+
+.container-title {
+  color: #ffffff;
+}
+
+.card-header {
+  background-color: #f5cd4c;
+}
+
+.filters-container {
+  margin-bottom: 20px;
+  min-width: 360px;
+}
+
+.filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+table {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .filters-form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+}

@@ -1,0 +1,143 @@
+<div class="dashboard-container">
+  <h1 class="container-title">Dashboard</h1>
+
+  <div class="dashboard-panels">
+    <mat-card class="dashboard-panel">
+      <mat-card-header class="card-header">
+        <h3>Anos com Múltiplos Vencedores</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-responsive-wrapper">
+          <table mat-table [dataSource]="yearsWithMultipleWinners.years" class="mat-elevation-z8">
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef>Ano</th>
+              <td mat-cell *matCellDef="let element">{{element.year}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="winnerCount">
+              <th mat-header-cell *matHeaderCellDef>Contagem de Vitórias</th>
+              <td mat-cell *matCellDef="let element">{{element.winnerCount}}</td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="yearsColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: yearsColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="dashboard-panel">
+      <mat-card-header class="card-header">
+        <h3>Top 3 Estúdios com Mais Vitórias</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-responsive-wrapper">
+          <table mat-table [dataSource]="studiosWithWinCount.studios" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Estúdio</th>
+              <td mat-cell *matCellDef="let element">{{element.name}}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="winCount">
+              <th mat-header-cell *matHeaderCellDef>Contagem de Vitórias</th>
+              <td mat-cell *matCellDef="let element">{{element.winCount}}</td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="studiosColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: studiosColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="dashboard-panel interval-panel">
+      <mat-card-header class="card-header">
+        <h3>Produtores com Maior e Menor Intervalo Entre Vitórias</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>Maior Intervalo</h4>
+        <div class="table-responsive-wrapper">
+          <table mat-table [dataSource]="producerWinInterval.max" class="mat-elevation-z8">
+            <ng-container matColumnDef="producer">
+              <th mat-header-cell *matHeaderCellDef>Produtor </th>
+              <td mat-cell *matCellDef="let element">{{element.producer}}</td>
+            </ng-container>
+            <ng-container matColumnDef="interval">
+              <th mat-header-cell *matHeaderCellDef>Intervalo</th>
+              <td mat-cell *matCellDef="let element">{{element.interval}}</td>
+            </ng-container>
+            <ng-container matColumnDef="previousWin">
+              <th mat-header-cell *matHeaderCellDef>Vitória Anterior</th>
+              <td mat-cell *matCellDef="let element">{{element.previousWin}}</td>
+            </ng-container>
+            <ng-container matColumnDef="followingWin">
+              <th mat-header-cell *matHeaderCellDef>Vitória Seguinte</th>
+              <td mat-cell *matCellDef="let element">{{element.followingWin}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="producersColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: producersColumns;"></tr>
+          </table>
+        </div>
+        <mat-divider></mat-divider>
+  
+        <h4>Menor Intervalo</h4>
+        <div class="table-responsive-wrapper">
+          <table mat-table [dataSource]="producerWinInterval.min" class="mat-elevation-z8">
+            <ng-container matColumnDef="producer">
+              <th mat-header-cell *matHeaderCellDef>Produtor</th>
+              <td mat-cell *matCellDef="let element">{{element.producer}}</td>
+            </ng-container>
+            <ng-container matColumnDef="interval">
+              <th mat-header-cell *matHeaderCellDef>Intervalo</th>
+              <td mat-cell *matCellDef="let element">{{element.interval}}</td>
+            </ng-container>
+            <ng-container matColumnDef="previousWin">
+              <th mat-header-cell *matHeaderCellDef>Vitória Anterior</th>
+              <td mat-cell *matCellDef="let element">{{element.previousWin}}</td>
+            </ng-container>
+            <ng-container matColumnDef="followingWin">
+              <th mat-header-cell *matHeaderCellDef>Vitória Seguinte</th>
+              <td mat-cell *matCellDef="let element">{{element.followingWin}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="producersColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: producersColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="dashboard-panel">
+      <mat-card-header class="card-header">
+        <h3>Vencedores por Ano</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="mat-accent" appearance="fill">
+          <mat-label>Buscar por ano</mat-label>
+          <input matInput type="number" [(ngModel)]="searchYear" placeholder="Digite o ano" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="searchWinnersByYear()">Buscar</button>
+
+        <div class="table-responsive-wrapper">
+          <table mat-table [dataSource]="moviesByYear" class="mat-elevation-z8" *ngIf="moviesByYear.length > 0">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef>Ano</th>
+              <td mat-cell *matCellDef="let element">{{element.year}}</td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Título</th>
+              <td mat-cell *matCellDef="let element">{{element.title}}</td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="winnersByYearColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: winnersByYearColumns;"></tr>
+          </table>
+        </div>
+        <p *ngIf="hasSearched && searchYear && moviesByYear.length === 0 && showMessage">Nenhum vencedor encontrado para o ano {{ searchYear }}.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

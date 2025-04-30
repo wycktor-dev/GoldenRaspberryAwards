@@ -1,0 +1,34 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Dourado
+$meu-primary: mat.m2-define-palette(mat.$m2-amber-palette, 300, 100, 400);
+// Fundo escuro
+$meu-accent: mat.m2-define-palette(mat.$m2-grey-palette, 900);
+// Vermelho
+$meu-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$meu-tema: mat.m2-define-light-theme((
+  color: (
+    primary: $meu-primary,
+    accent: $meu-accent,
+    warn: $meu-warn,
+  )
+));
+
+@include mat.all-component-themes($meu-tema);
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: mat.m2-get-color-from-palette($meu-accent, 900);
+  color: mat.m2-get-color-from-palette($meu-accent, 900);
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+}
